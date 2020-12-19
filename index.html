@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page Title</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <script>
+      function computerPlay () {
+      var options = ["ROCK", "PAPER", "SCISSORS"] 
+      var play = options[Math.floor(Math.random() * options.length)]; /*gets a random number between 0 and 2 where 0=rock; 1=paer; 2=scissors */
+      console.log("Computer plays " + play)
+      return play
+      }
+
+      let playerScore = 0
+      let computerScore = 0
+
+    function playRound (playerSelection, computerSelection) {
+      if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {playerScore++; return "You Win! Rock beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "ROCK" && computerSelection == "PAPER") {computerScore++;return "You Lose! Paper beats Rock. Player: "+playerScore +" Computer: "+computerScore;}
+      else if (playerSelection == "ROCK" && computerSelection == "ROCK") {return "Tie! Rock does not beat Rock nor Rock beats Rock. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "SCISSORS") {return "Tie! Scissors does not beat Scissors nor Scissors beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {playerScore++;return "You Win! Scissors beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {computerScore++;return "You Lose! Rock beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {computerScore++;return "You Lose! Scissors beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "PAPER" && computerSelection == "PAPER") {return "Tie! Paper does not beat Paper nor Paper beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
+      else if (playerSelection == "PAPER" && computerSelection == "ROCK") {playerScore++;return "You Win! Paper beats Rock. Player: "+playerScore+" Computer: "+computerScore;}
+      else return "WHOOPS"
+      }   
+
+
+    function game () {
+    while (playerScore<5 && computerScore <5 ){
+    let playerSelection = prompt("Please enter Rock, Paper or Scissors. First to 5 wins!")
+    playerSelection = playerSelection.toUpperCase();
+    const computerSelection = computerPlay()
+    console.log(playRound(playerSelection, computerSelection))   
+    }
+
+    if (playerScore=5 && computerScore<5) {alert("You win!");}
+    else if (computerScore=5 && playerScore<5) {alert("You lose");}
+    }
+
+    game()
+
+  </script>
+</body>
+</html>
