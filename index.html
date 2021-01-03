@@ -5,44 +5,79 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+  <header>Play Rock, Paper, Scissors. First to 5 wins!</header>
+  <div class = "scores">
+    <h1>Player Score</h1>
+    <h2 class = "playerScoreDisplay">0</h2>
+
+    <h1>Computer Score</h1>
+    <h2 class = "computerScoreDisplay">0</h2>
+  </div>
+  <div class = "buttons">
+    <button class = "rock" data-button="rock"> Rock </button>
+    <button class = "paper" data-button="paper"> Paper </button>
+    <button class = "scissors" data-button="scissors"> Scissors </button>
+    </button> 
+  <div>
+    <h3 class = "computer-text">Computer play</h3>
+  </div>
+  </div>
+
+
   <script>
+
+      const playerScoreDisplay = document.querySelector(".playerScoreDisplay");
+      const computerScoreDisplay = document.querySelector(".computerScoreDisplay");
+      const computerText = document.querySelector(".computer-text");
+
       function computerPlay () {
       var options = ["ROCK", "PAPER", "SCISSORS"] 
-      var play = options[Math.floor(Math.random() * options.length)]; /*gets a random number between 0 and 2 where 0=rock; 1=paer; 2=scissors */
-      console.log("Computer plays " + play)
+      var play = options[Math.floor(Math.random() * options.length)]; /*gets a random number between 0 and 2 where 0=rock; 1=paper; 2=scissors */
+      computerText.textContent = `Computer played ${play}`;
       return play
       }
+
+      const rockButton = document.querySelector('.rock');
+      const paperButton = document.querySelector('.paper');
+      const scissorsButton = document.querySelector('.scissors');
 
       let playerScore = 0
       let computerScore = 0
 
     function playRound (playerSelection, computerSelection) {
-      if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {playerScore++; return "You Win! Rock beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "ROCK" && computerSelection == "PAPER") {computerScore++;return "You Lose! Paper beats Rock. Player: "+playerScore +" Computer: "+computerScore;}
-      else if (playerSelection == "ROCK" && computerSelection == "ROCK") {return "Tie! Rock does not beat Rock nor Rock beats Rock. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "SCISSORS" && computerSelection == "SCISSORS") {return "Tie! Scissors does not beat Scissors nor Scissors beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {playerScore++;return "You Win! Scissors beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {computerScore++;return "You Lose! Rock beats Scissors. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {computerScore++;return "You Lose! Scissors beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "PAPER" && computerSelection == "PAPER") {return "Tie! Paper does not beat Paper nor Paper beats Paper. Player: "+playerScore+" Computer: "+computerScore;}
-      else if (playerSelection == "PAPER" && computerSelection == "ROCK") {playerScore++;return "You Win! Paper beats Rock. Player: "+playerScore+" Computer: "+computerScore;}
+      if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {playerScore++; alert `You Win! Rock beats Scissors.`;}
+      else if (playerSelection == "ROCK" && computerSelection == "PAPER") {computerScore++;alert `You Lose! Paper beats Rock.`;}
+      else if (playerSelection == "ROCK" && computerSelection == "ROCK") {alert `Tie!`;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "SCISSORS") {alert `Tie!`;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {playerScore++;alert `You Win! Scissors beats Paper.`;}
+      else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {computerScore++;alert `You Lose! Rock beats Scissors.`;}
+      else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {computerScore++;alert `You Lose! Scissors beats Paper.`;}
+      else if (playerSelection == "PAPER" && computerSelection == "PAPER") {alert `Tie!`;}
+      else if (playerSelection == "PAPER" && computerSelection == "ROCK") {playerScore++;alert `You Win! Paper beats Rock`;}
       else return "WHOOPS"
       }   
 
+    function gameover () {
+      if (playerScore >= 5) {playerScore = 0; computerScore = 0; alert `Gameover, You win!`;}
+      else if (computerScore >= 5) {playerScore = 0; computerScore = 0; alert `Gameover, You lose!`; }
+      playerScoreDisplay.textContent = `${playerScore}`;
+      computerScoreDisplay.textContent = `${computerScore}`;
+      }
 
-    function game () {
-    while (playerScore<5 && computerScore <5 ){
-    let playerSelection = prompt("Please enter Rock, Paper or Scissors. First to 5 wins!")
-    playerSelection = playerSelection.toUpperCase();
-    const computerSelection = computerPlay()
-    console.log(playRound(playerSelection, computerSelection))   
-    }
+    function game () {    
+        let playerSelection = this.dataset.button;
+        playerSelection = playerSelection.toUpperCase();
+        const computerSelection = computerPlay();
+        playRound(playerSelection, computerSelection);   
+        playerScoreDisplay.textContent = `${playerScore}`;
+        computerScoreDisplay.textContent = `${computerScore}`;}
 
-    if (playerScore=5 && computerScore<5) {alert("You win!");}
-    else if (computerScore=5 && playerScore<5) {alert("You lose");}
-    }
-
-    game()
+    rockButton.addEventListener("click", game);
+    rockButton.addEventListener("click", gameover);
+    paperButton.addEventListener("click", game);
+    paperButton.addEventListener("click", gameover);
+    scissorsButton.addEventListener("click", game);
+    scissorsButton.addEventListener("click", gameover);
 
   </script>
 </body>
